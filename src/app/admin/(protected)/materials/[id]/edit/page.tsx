@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
@@ -28,7 +28,8 @@ interface MaterialForm {
   published: boolean
 }
 
-export default function EditMaterial({ params }: { params: { id: string } }) {
+export default function EditMaterial({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params)
   const router = useRouter()
   const [categories, setCategories] = useState<Category[]>([])
   const [formData, setFormData] = useState<MaterialForm | null>(null)
@@ -36,7 +37,7 @@ export default function EditMaterial({ params }: { params: { id: string } }) {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
-    Promise.all([fetch('/api/admin/categories'), fetch(`/api/admin/materials/${params.id}`)])
+    Promise.all([fetch('/api/admin/categories'), fetch(`/api/admin/materials/${id}`)])
       .then(async ([categoriesRes, materialRes]) => {
         const categoriesData = await categoriesRes.json()
         const materialData = await materialRes.json()
@@ -56,7 +57,7 @@ export default function EditMaterial({ params }: { params: { id: string } }) {
         toast.error('Failed to load material.')
       })
       .finally(() => setIsLoading(false))
-  }, [params.id])
+  }, [id])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -64,7 +65,7 @@ export default function EditMaterial({ params }: { params: { id: string } }) {
     setIsSubmitting(true)
 
     try {
-      const response = await fetch(`/api/admin/materials/${params.id}`, {
+      const response = await fetch(`/api/admin/materials/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

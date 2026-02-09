@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
@@ -23,7 +23,8 @@ interface PaperForm {
   featured: boolean
 }
 
-export default function EditPaper({ params }: { params: { id: string } }) {
+export default function EditPaper({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params)
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
@@ -32,7 +33,7 @@ export default function EditPaper({ params }: { params: { id: string } }) {
   useEffect(() => {
     const fetchPaper = async () => {
       try {
-        const response = await fetch(`/api/admin/papers/${params.id}`)
+        const response = await fetch(`/api/admin/papers/${id}`)
         const data = await response.json()
         setFormData(data)
       } catch (error) {
@@ -44,7 +45,7 @@ export default function EditPaper({ params }: { params: { id: string } }) {
     }
 
     fetchPaper()
-  }, [params.id])
+  }, [id])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -52,7 +53,7 @@ export default function EditPaper({ params }: { params: { id: string } }) {
     setIsSubmitting(true)
 
     try {
-      const response = await fetch(`/api/admin/papers/${params.id}`, {
+      const response = await fetch(`/api/admin/papers/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

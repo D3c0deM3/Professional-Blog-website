@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, CheckCircle2, Send } from 'lucide-react'
@@ -25,7 +25,8 @@ interface QuestionDetail {
   } | null
 }
 
-export default function QuestionDetailPage({ params }: { params: { id: string } }) {
+export default function QuestionDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params)
   const router = useRouter()
   const [question, setQuestion] = useState<QuestionDetail | null>(null)
   const [answer, setAnswer] = useState('')
@@ -36,7 +37,7 @@ export default function QuestionDetailPage({ params }: { params: { id: string } 
   useEffect(() => {
     const fetchQuestion = async () => {
       try {
-        const response = await fetch(`/api/admin/questions/${params.id}`)
+        const response = await fetch(`/api/admin/questions/${id}`)
         const data = await response.json()
         setQuestion(data)
         setAnswer(data.answer || '')
@@ -50,7 +51,7 @@ export default function QuestionDetailPage({ params }: { params: { id: string } 
     }
 
     fetchQuestion()
-  }, [params.id])
+  }, [id])
 
   const handleSave = async () => {
     if (!answer.trim()) {
@@ -60,7 +61,7 @@ export default function QuestionDetailPage({ params }: { params: { id: string } 
 
     setIsSaving(true)
     try {
-      const response = await fetch(`/api/admin/questions/${params.id}`, {
+      const response = await fetch(`/api/admin/questions/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ answer }),
@@ -89,7 +90,7 @@ export default function QuestionDetailPage({ params }: { params: { id: string } 
 
     setIsSaving(true)
     try {
-      const response = await fetch(`/api/admin/questions/${params.id}`, {
+      const response = await fetch(`/api/admin/questions/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ answer, publish: true, category }),

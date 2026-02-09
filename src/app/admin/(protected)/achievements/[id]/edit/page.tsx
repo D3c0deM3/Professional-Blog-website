@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
@@ -20,14 +20,15 @@ interface AchievementForm {
   order: number
 }
 
-export default function EditAchievement({ params }: { params: { id: string } }) {
+export default function EditAchievement({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params)
   const router = useRouter()
   const [formData, setFormData] = useState<AchievementForm | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
-    fetch(`/api/admin/achievements/${params.id}`)
+    fetch(`/api/admin/achievements/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setFormData({
@@ -44,7 +45,7 @@ export default function EditAchievement({ params }: { params: { id: string } }) 
         toast.error('Failed to load achievement.')
       })
       .finally(() => setIsLoading(false))
-  }, [params.id])
+  }, [id])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -52,7 +53,7 @@ export default function EditAchievement({ params }: { params: { id: string } }) 
     setIsSubmitting(true)
 
     try {
-      const response = await fetch(`/api/admin/achievements/${params.id}`, {
+      const response = await fetch(`/api/admin/achievements/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
