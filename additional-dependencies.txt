@@ -1,0 +1,15 @@
+# Additional dependencies to install:
+# Run these commands in the project directory:
+
+npm install bcryptjs uuid
+npm install -D @types/bcryptjs @types/uuid
+
+# For Prisma:
+npm install @prisma/client
+npm install -D prisma
+
+# For NextAuth:
+npm install next-auth
+
+# For icons:
+npm install lucide-react

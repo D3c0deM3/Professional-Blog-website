@@ -1,0 +1,144 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Page {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  content     String
+  metaDescription String?
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Paper {
+  id          String   @id @default(cuid())
+  title       String
+  authors     String
+  journal     String
+  year        Int
+  abstract    String
+  doi         String?
+  pdfUrl      String?
+  published   Boolean  @default(true)
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Category {
+  id          String     @id @default(cuid())
+  name        String     @unique
+  slug        String     @unique
+  description String?
+  materials   Material[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Material {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  fileUrl     String
+  fileType    String
+  fileSize    String
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+  published   Boolean  @default(true)
+  downloadCount Int    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  technologies String
+  githubUrl   String?
+  demoUrl     String?
+  imageUrl    String?
+  featured    Boolean  @default(false)
+  published   Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Achievement {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  year        Int
+  institution String?
+  type        String   @default("award")
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model QuestionSubmission {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  subject     String
+  question    String
+  status      String   @default("pending")
+  answer      String?
+  publishedAsQA Boolean @default(false)
+  qa          QA?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model QA {
+  id          String   @id @default(cuid())
+  question    String
+  answer      String
+  category    String?
+  order       Int      @default(0)
+  published   Boolean  @default(true)
+  views       Int      @default(0)
+  submissionId String?  @unique
+  submission  QuestionSubmission? @relation(fields: [submissionId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Contact {
+  id          String   @id @default(cuid())
+  email       String
+  phone       String?
+  office      String?
+  officeHours String?
+  linkedin    String?
+  github      String?
+  twitter     String?
+  googleScholar String?
+  updatedAt   DateTime @updatedAt
+}
+
+model SiteSetting {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String
+  updatedAt   DateTime @updatedAt
+}
