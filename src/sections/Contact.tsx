@@ -27,8 +27,7 @@ export default function Contact({ contact }: ContactProps) {
       <div className="container-padding mx-auto max-w-5xl text-center">
         <motion.div
           initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
           <div className="mx-auto mb-4 h-10 w-px bg-border" />
@@ -41,8 +40,7 @@ export default function Contact({ contact }: ContactProps) {
         {contact?.email && (
           <motion.div
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: 'easeOut', delay: 0.1 }}
             className="mt-10"
           >
@@ -58,8 +56,7 @@ export default function Contact({ contact }: ContactProps) {
 
         <motion.div
           initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}
           className="mt-10 grid gap-6 md:grid-cols-3"
         >
@@ -88,8 +85,7 @@ export default function Contact({ contact }: ContactProps) {
 
         <motion.div
           initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: 'easeOut', delay: 0.3 }}
           className="mt-10 flex flex-wrap justify-center gap-4"
         >

@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
+import RichContent from '@/components/RichContent'
 import { prisma } from '@/lib/prisma'
 
 export const dynamic = 'force-dynamic'
@@ -47,9 +46,7 @@ export default async function DynamicPage({ params }: PageProps) {
         <div className="container-padding mx-auto max-w-3xl">
           <h1 className="font-display text-3xl sm:text-4xl md:text-5xl">{page.title}</h1>
           <div className="divider-line my-8" />
-          <div className="markdown text-muted-foreground">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{page.content}</ReactMarkdown>
-          </div>
+          <RichContent content={page.content} className="text-muted-foreground" />
         </div>
       </section>
     </main>

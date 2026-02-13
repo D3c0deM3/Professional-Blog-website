@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion'
 import { Award, BookOpen, GraduationCap, Trophy } from 'lucide-react'
+import RichContent from '@/components/RichContent'
 import { Card, CardContent } from '@/components/ui/card'
 
 interface Achievement {
@@ -39,8 +40,7 @@ export default function Achievements({ achievements, stats }: AchievementsProps)
       <div className="container-padding mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="text-center"
         >
@@ -56,8 +56,7 @@ export default function Achievements({ achievements, stats }: AchievementsProps)
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.05 }}
               className="rounded-xl border border-border bg-secondary/40 px-6 py-5 text-center"
             >
@@ -77,8 +76,7 @@ export default function Achievements({ achievements, stats }: AchievementsProps)
             <motion.div
               key={achievement.id}
               initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.05 }}
             >
               <Card className="h-full">
@@ -91,7 +89,10 @@ export default function Achievements({ achievements, stats }: AchievementsProps)
                       {achievement.year}
                     </div>
                     <h3 className="mt-2 font-display text-lg">{achievement.title}</h3>
-                    <p className="mt-2 text-sm text-muted-foreground">{achievement.description}</p>
+                    <RichContent
+                      content={achievement.description}
+                      className="mt-2 text-sm text-muted-foreground [&_p]:my-0"
+                    />
                     {achievement.institution && (
                       <p className="mt-2 text-xs text-muted-foreground">{achievement.institution}</p>
                     )}

@@ -6,9 +6,9 @@ import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { toast } from 'sonner'
 import FileUploadField from '@/components/admin/FileUploadField'
+import RichTextEditor from '@/components/admin/RichTextEditor'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
@@ -138,11 +138,11 @@ export default function EditMaterial({ params }: { params: Promise<{ id: string 
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="description">Description *</Label>
-          <Textarea
+          <RichTextEditor
             id="description"
+            label="Description *"
             value={formData.description}
-            onChange={(event) => setFormData((prev) => prev ? { ...prev, description: event.target.value } : prev)}
+            onChange={(value) => setFormData((prev) => prev ? { ...prev, description: value } : prev)}
             rows={4}
             required
           />

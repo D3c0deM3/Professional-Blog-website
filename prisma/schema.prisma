@@ -35,8 +35,11 @@ model Paper {
   journal     String
   year        Int
   abstract    String
+  language    String   @default("English")
   doi         String?
   pdfUrl      String?
+  contentType String   @default("pdf")
+  content     String?
   published   Boolean  @default(true)
   featured    Boolean  @default(false)
   createdAt   DateTime @default(now())

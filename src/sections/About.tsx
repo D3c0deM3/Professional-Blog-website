@@ -3,9 +3,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
 import { Download, ArrowRight } from 'lucide-react'
+import RichContent from '@/components/RichContent'
 import { Button } from '@/components/ui/button'
 
 interface AboutProps {
@@ -25,8 +24,7 @@ export default function About({ content, cvUrl, profileImageUrl, professorName }
         <div className="grid gap-12 lg:grid-cols-[1.1fr_1.4fr] lg:items-center">
           <motion.div
             initial={initial}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
             className="relative"
           >
@@ -58,8 +56,7 @@ export default function About({ content, cvUrl, profileImageUrl, professorName }
 
           <motion.div
             initial={initial}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
           >
             <div className="flex items-center gap-4 text-xs uppercase tracking-[0.35em] text-muted-foreground">
@@ -67,9 +64,7 @@ export default function About({ content, cvUrl, profileImageUrl, professorName }
               <span className="divider-line" />
             </div>
             <h2 className="mt-6 text-3xl font-display sm:text-4xl md:text-5xl">Academic Profile</h2>
-            <div className="mt-8 space-y-4 text-base text-muted-foreground leading-relaxed">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
-            </div>
+            <RichContent content={content} className="mt-8 text-base leading-relaxed text-muted-foreground" />
 
             <div className="mt-10 flex flex-wrap gap-3">
               {cvUrl && (

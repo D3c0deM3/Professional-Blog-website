@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react'
 import { Edit2, Plus, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
+import RichTextEditor from '@/components/admin/RichTextEditor'
 import { slugify } from '@/lib/slug'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import {
@@ -158,10 +158,10 @@ export default function CategoriesAdmin() {
             />
           </div>
           <div className="space-y-2 md:col-span-3">
-            <Label>Description</Label>
-            <Textarea
+            <RichTextEditor
+              label="Description"
               value={newCategory.description}
-              onChange={(event) => setNewCategory((prev) => ({ ...prev, description: event.target.value }))}
+              onChange={(value) => setNewCategory((prev) => ({ ...prev, description: value }))}
               rows={3}
             />
           </div>
@@ -233,10 +233,10 @@ export default function CategoriesAdmin() {
                 />
               </div>
               <div className="space-y-2">
-                <Label>Description</Label>
-                <Textarea
+                <RichTextEditor
+                  label="Description"
                   value={editing.description || ''}
-                  onChange={(event) => setEditing({ ...editing, description: event.target.value })}
+                  onChange={(value) => setEditing({ ...editing, description: value })}
                 />
               </div>
             </div>

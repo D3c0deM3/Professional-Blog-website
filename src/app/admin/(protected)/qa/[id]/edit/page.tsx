@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { toast } from 'sonner'
+import RichTextEditor from '@/components/admin/RichTextEditor'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 
 interface QAForm {
@@ -103,11 +103,11 @@ export default function EditQA({ params }: { params: Promise<{ id: string }> }) 
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="answer">Answer *</Label>
-          <Textarea
+          <RichTextEditor
             id="answer"
+            label="Answer *"
             value={formData.answer}
-            onChange={(event) => setFormData({ ...formData, answer: event.target.value })}
+            onChange={(value) => setFormData({ ...formData, answer: value })}
             rows={5}
             required
           />

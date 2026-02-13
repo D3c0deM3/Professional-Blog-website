@@ -1,0 +1,3 @@
+ALTER TABLE "Paper" ADD COLUMN "language" TEXT NOT NULL DEFAULT 'English';
+ALTER TABLE "Paper" ADD COLUMN "contentType" TEXT NOT NULL DEFAULT 'pdf';
+ALTER TABLE "Paper" ADD COLUMN "content" TEXT;

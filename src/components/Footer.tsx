@@ -5,10 +5,16 @@ import { ArrowUp } from 'lucide-react'
 
 interface FooterProps {
   footerText?: string
+  onBackToTop?: () => void
 }
 
-export default function Footer({ footerText }: FooterProps) {
+export default function Footer({ footerText, onBackToTop }: FooterProps) {
   const scrollToTop = () => {
+    if (onBackToTop) {
+      onBackToTop()
+      return
+    }
+
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 

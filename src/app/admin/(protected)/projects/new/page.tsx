@@ -6,9 +6,9 @@ import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { toast } from 'sonner'
 import FileUploadField from '@/components/admin/FileUploadField'
+import RichTextEditor from '@/components/admin/RichTextEditor'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 
 export default function NewProject() {
@@ -87,11 +87,11 @@ export default function NewProject() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="description">Description *</Label>
-          <Textarea
+          <RichTextEditor
             id="description"
+            label="Description *"
             value={formData.description}
-            onChange={(event) => setFormData((prev) => ({ ...prev, description: event.target.value }))}
+            onChange={(value) => setFormData((prev) => ({ ...prev, description: value }))}
             rows={4}
             required
           />

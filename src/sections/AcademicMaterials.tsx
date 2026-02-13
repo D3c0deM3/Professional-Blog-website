@@ -6,6 +6,7 @@ import { Download, FileText, Code, BookOpen, Archive } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
+import { stripRichText } from '@/lib/rich-text'
 
 interface Category {
   id: string
@@ -49,8 +50,7 @@ export default function AcademicMaterials({ categories, materials }: AcademicMat
       <div className="container-padding mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="text-center"
         >
@@ -86,8 +86,7 @@ export default function AcademicMaterials({ categories, materials }: AcademicMat
             <motion.div
               key={material.id}
               initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.05 }}
             >
               <Card className="h-full">
@@ -98,7 +97,7 @@ export default function AcademicMaterials({ categories, materials }: AcademicMat
                     </div>
                     <div className="flex-1">
                       <h3 className="font-display text-lg">{material.title}</h3>
-                      <p className="mt-2 text-sm text-muted-foreground">{material.description}</p>
+                      <p className="mt-2 text-sm text-muted-foreground">{stripRichText(material.description)}</p>
                       <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                         <Badge variant="outline">{material.category.name}</Badge>
                         <span>{material.fileSize}</span>

@@ -23,8 +23,11 @@ export interface Paper {
   journal: string
   year: number
   abstract: string
+  language: string
   doi?: string
   pdfUrl?: string
+  contentType: 'pdf' | 'written'
+  content?: string
   published: boolean
   featured: boolean
   createdAt: Date

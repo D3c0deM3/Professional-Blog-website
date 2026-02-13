@@ -74,8 +74,7 @@ export default function AskQuestion({ contact }: AskQuestionProps) {
         <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
           <motion.div
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
           >
             <div className="flex items-center gap-4 text-xs uppercase tracking-[0.35em] text-muted-foreground">
@@ -126,8 +125,7 @@ export default function AskQuestion({ contact }: AskQuestionProps) {
 
           <motion.div
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
             className="rounded-2xl border border-border bg-background/80 p-6 shadow-sm"
           >

@@ -5,20 +5,25 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { toast } from 'sonner'
+import RichTextEditor from '@/components/admin/RichTextEditor'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import FileUploadField from '@/components/admin/FileUploadField'
+
+type PaperContentType = 'pdf' | 'written'
 
 interface PaperForm {
   title: string
   authors: string
   journal: string
   year: number
+  language: string
   abstract: string
   doi?: string | null
   pdfUrl?: string | null
+  contentType: PaperContentType
+  content?: string | null
   published: boolean
   featured: boolean
 }
@@ -35,7 +40,13 @@ export default function EditPaper({ params }: { params: Promise<{ id: string }> 
       try {
         const response = await fetch(`/api/admin/papers/${id}`)
         const data = await response.json()
-        setFormData(data)
+        setFormData({
+          ...data,
+          language: data.language || 'English',
+          contentType: data.contentType === 'written' ? 'written' : 'pdf',
+          content: data.content || '',
+          pdfUrl: data.pdfUrl || '',
+        })
       } catch (error) {
         console.error('Error fetching paper:', error)
         toast.error('Failed to load paper.')
@@ -50,6 +61,17 @@ export default function EditPaper({ params }: { params: Promise<{ id: string }> 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!formData) return
+
+    if (formData.contentType === 'pdf' && !formData.pdfUrl?.trim()) {
+      toast.error('Please upload a PDF or provide a PDF URL.')
+      return
+    }
+
+    if (formData.contentType === 'written' && !formData.content?.trim()) {
+      toast.error('Please add written content for this paper.')
+      return
+    }
+
     setIsSubmitting(true)
 
     try {
@@ -104,7 +126,7 @@ export default function EditPaper({ params }: { params: Promise<{ id: string }> 
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6 rounded-xl border border-border bg-background p-6 shadow-sm">
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-3">
           <div className="space-y-2">
             <Label htmlFor="title">Title *</Label>
             <Input
@@ -151,17 +173,73 @@ export default function EditPaper({ params }: { params: Promise<{ id: string }> 
               max={2100}
             />
           </div>
+          <div className="space-y-2">
+            <Label htmlFor="language">Language *</Label>
+            <Input
+              id="language"
+              name="language"
+              value={formData.language}
+              onChange={handleChange}
+              placeholder="English"
+              required
+            />
+          </div>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="abstract">Abstract</Label>
-          <Textarea
+          <RichTextEditor
             id="abstract"
-            name="abstract"
+            label="Abstract"
             value={formData.abstract}
-            onChange={handleChange}
+            onChange={(value) => setFormData({ ...formData, abstract: value })}
             rows={5}
           />
+        </div>
+
+        <div className="space-y-3">
+          <Label>Paper Source *</Label>
+          <div className="grid gap-3 md:grid-cols-2">
+            <label
+              className={`cursor-pointer rounded-lg border p-4 transition-colors ${
+                formData.contentType === 'pdf'
+                  ? 'border-primary bg-secondary/70'
+                  : 'border-border hover:bg-secondary/40'
+              }`}
+            >
+              <input
+                type="radio"
+                name="contentType"
+                value="pdf"
+                checked={formData.contentType === 'pdf'}
+                onChange={() => setFormData({ ...formData, contentType: 'pdf' })}
+                className="sr-only"
+              />
+              <div className="font-medium">Upload PDF</div>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Paper card will show a Download button.
+              </p>
+            </label>
+            <label
+              className={`cursor-pointer rounded-lg border p-4 transition-colors ${
+                formData.contentType === 'written'
+                  ? 'border-primary bg-secondary/70'
+                  : 'border-border hover:bg-secondary/40'
+              }`}
+            >
+              <input
+                type="radio"
+                name="contentType"
+                value="written"
+                checked={formData.contentType === 'written'}
+                onChange={() => setFormData({ ...formData, contentType: 'written' })}
+                className="sr-only"
+              />
+              <div className="font-medium">Write in Dashboard</div>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Paper card will show a Read More button.
+              </p>
+            </label>
+          </div>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
@@ -174,13 +252,29 @@ export default function EditPaper({ params }: { params: Promise<{ id: string }> 
               onChange={handleChange}
             />
           </div>
-          <FileUploadField
-            label="PDF Upload"
-            value={formData.pdfUrl || ''}
-            onChange={(value) => setFormData({ ...formData, pdfUrl: value })}
-            accept=".pdf"
-          />
+          {formData.contentType === 'pdf' && (
+            <FileUploadField
+              label="PDF Upload *"
+              value={formData.pdfUrl || ''}
+              onChange={(value) => setFormData({ ...formData, pdfUrl: value })}
+              accept=".pdf"
+            />
+          )}
         </div>
+
+        {formData.contentType === 'written' && (
+          <div className="space-y-2">
+            <RichTextEditor
+              id="content"
+              label="Paper Content *"
+              value={formData.content || ''}
+              onChange={(value) => setFormData({ ...formData, content: value })}
+              rows={12}
+              placeholder="Write the research paper content here..."
+              required
+            />
+          </div>
+        )}
 
         <div className="flex items-center gap-6">
           <label className="flex items-center gap-2 text-sm">

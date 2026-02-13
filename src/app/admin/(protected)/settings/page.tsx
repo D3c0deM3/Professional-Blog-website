@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import FileUploadField from '@/components/admin/FileUploadField'
+import RichTextEditor from '@/components/admin/RichTextEditor'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 interface SettingItem {
@@ -137,13 +137,12 @@ export default function SettingsAdmin() {
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label>CV URL</Label>
-            <Input
-              value={settings.cvUrl || ''}
-              onChange={(event) => updateSetting('cvUrl', event.target.value)}
-            />
-          </div>
+          <FileUploadField
+            label="CV PDF"
+            value={settings.cvUrl || ''}
+            onChange={(value) => updateSetting('cvUrl', value)}
+            accept=".pdf"
+          />
 
           <FileUploadField
             label="Profile Image"
@@ -155,18 +154,18 @@ export default function SettingsAdmin() {
 
         <TabsContent value="hero" className="mt-6 space-y-6 rounded-xl border border-border bg-background p-6 shadow-sm">
           <div className="space-y-2">
-            <Label>Hero Headline</Label>
-            <Textarea
+            <RichTextEditor
+              label="Hero Headline"
               value={settings.heroHeadline || ''}
-              onChange={(event) => updateSetting('heroHeadline', event.target.value)}
+              onChange={(value) => updateSetting('heroHeadline', value)}
               rows={3}
             />
           </div>
           <div className="space-y-2">
-            <Label>Hero Subheadline</Label>
-            <Textarea
+            <RichTextEditor
+              label="Hero Subheadline"
               value={settings.heroSubheadline || ''}
-              onChange={(event) => updateSetting('heroSubheadline', event.target.value)}
+              onChange={(value) => updateSetting('heroSubheadline', value)}
               rows={3}
             />
           </div>

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ExternalLink, Github } from 'lucide-react'
+import RichContent from '@/components/RichContent'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -30,8 +31,7 @@ export default function Projects({ projects }: ProjectsProps) {
       <div className="container-padding mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
         >
@@ -52,8 +52,7 @@ export default function Projects({ projects }: ProjectsProps) {
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut', delay: index * 0.08 }}
             >
               <Card className="h-full">
@@ -75,7 +74,10 @@ export default function Projects({ projects }: ProjectsProps) {
                   <div className="flex h-full flex-col gap-3">
                     <div>
                       <h3 className="font-display text-xl">{project.title}</h3>
-                      <p className="mt-2 text-sm text-muted-foreground">{project.description}</p>
+                      <RichContent
+                        content={project.description}
+                        className="mt-2 text-sm text-muted-foreground [&_p]:my-0"
+                      />
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {project.technologies.split(',').map((tech) => (

@@ -3,20 +3,39 @@
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowDown, FileText, Mail } from 'lucide-react'
+import RichContent from '@/components/RichContent'
 import { Button } from '@/components/ui/button'
 
 interface HeroProps {
   settings: Record<string, string>
 }
 
+const sectionRouteMap: Record<string, string> = {
+  '#about': '/about',
+  '#research': '/research',
+  '#materials': '/materials',
+  '#projects': '/projects',
+  '#achievements': '/achievements',
+  '#qa': '/qa',
+  '#ask-question': '/ask-question',
+  '#contact': '/contact',
+}
+
+function normalizeCtaLink(link?: string) {
+  if (!link) return ''
+  if (link.startsWith('#')) {
+    return sectionRouteMap[link] || '/'
+  }
+  return link
+}
+
 export default function Hero({ settings }: HeroProps) {
   const shouldReduceMotion = useReducedMotion()
   const headline = settings.heroHeadline || ''
-  const headlineLines = headline.split('\n')
   const primaryLabel = settings.heroPrimaryCtaLabel
-  const primaryLink = settings.heroPrimaryCtaLink
+  const primaryLink = normalizeCtaLink(settings.heroPrimaryCtaLink)
   const secondaryLabel = settings.heroSecondaryCtaLabel
-  const secondaryLink = settings.heroSecondaryCtaLink
+  const secondaryLink = normalizeCtaLink(settings.heroSecondaryCtaLink)
   const identityLine = [settings.professorName, settings.professorTitle, settings.department]
     .filter(Boolean)
     .join(' · ')
@@ -55,17 +74,16 @@ export default function Hero({ settings }: HeroProps) {
             </motion.div>
           )}
 
-          <motion.h1 variants={item} className="text-balance font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
-            {headlineLines.map((line, index) => (
-              <span key={index} className="block">
-                {line}
-              </span>
-            ))}
-          </motion.h1>
+          <motion.div variants={item}>
+            <RichContent
+              content={headline}
+              className="text-balance font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl [&_p]:my-0 [&_p]:leading-[1.15] [&_h1]:my-0 [&_h1]:text-inherit [&_h2]:my-0 [&_h2]:text-inherit"
+            />
+          </motion.div>
 
-          <motion.p variants={item} className="mx-auto max-w-2xl text-lg text-muted-foreground">
-            {settings.heroSubheadline || ''}
-          </motion.p>
+          <motion.div variants={item} className="mx-auto max-w-2xl text-lg text-muted-foreground [&_p]:my-0">
+            <RichContent content={settings.heroSubheadline || ''} />
+          </motion.div>
 
           <motion.div variants={item} className="flex flex-col items-center justify-center gap-3 sm:flex-row">
             {primaryLabel && primaryLink && (
@@ -94,7 +112,7 @@ export default function Hero({ settings }: HeroProps) {
         transition={{ duration: 0.6, delay: 0.6 }}
         className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-xs uppercase tracking-[0.35em] text-muted-foreground"
       >
-        <span>Scroll to explore</span>
+        <span>Use menu to explore</span>
         <ArrowDown className="h-4 w-4 animate-bounce" />
       </motion.div>
     </section>

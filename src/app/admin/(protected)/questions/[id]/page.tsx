@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, CheckCircle2, Send } from 'lucide-react'
 import { toast } from 'sonner'
+import RichTextEditor from '@/components/admin/RichTextEditor'
 import { Button } from '@/components/ui/button'
-import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
@@ -150,11 +150,11 @@ export default function QuestionDetailPage({ params }: { params: Promise<{ id: s
 
       <div className="rounded-xl border border-border bg-background p-6 shadow-sm space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="answer">Answer</Label>
-          <Textarea
+          <RichTextEditor
             id="answer"
+            label="Answer"
             value={answer}
-            onChange={(event) => setAnswer(event.target.value)}
+            onChange={setAnswer}
             rows={6}
           />
         </div>

@@ -22,6 +22,8 @@ interface Paper {
   authors: string
   journal: string
   year: number
+  language: string
+  contentType: 'pdf' | 'written'
   published: boolean
   featured: boolean
 }
@@ -166,6 +168,8 @@ export default function PapersAdmin() {
           <TableRow>
             <TableHead>Title</TableHead>
             <TableHead>Authors</TableHead>
+            <TableHead>Language</TableHead>
+            <TableHead>Type</TableHead>
             <TableHead>Year</TableHead>
             <TableHead>Status</TableHead>
             <TableHead className="text-right">Actions</TableHead>
@@ -179,6 +183,8 @@ export default function PapersAdmin() {
                 <div className="text-xs text-muted-foreground">{paper.journal}</div>
               </TableCell>
               <TableCell className="text-sm text-muted-foreground">{paper.authors}</TableCell>
+              <TableCell className="text-sm text-muted-foreground">{paper.language || 'English'}</TableCell>
+              <TableCell className="text-sm text-muted-foreground capitalize">{paper.contentType || 'pdf'}</TableCell>
               <TableCell className="text-sm text-muted-foreground">{paper.year}</TableCell>
               <TableCell>
                 <div className="flex items-center gap-2">
