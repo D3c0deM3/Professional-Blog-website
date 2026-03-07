@@ -59,8 +59,6 @@ export default function Hero({ settings }: HeroProps) {
       id="home"
       className="relative min-h-screen overflow-hidden pt-28"
     >
-      <div className="hero-glass-overlay absolute inset-0 z-0" />
-
       <div className="container-padding relative z-10 mx-auto flex max-w-7xl flex-col items-center text-center">
         <motion.div
           variants={container}
@@ -106,15 +104,6 @@ export default function Hero({ settings }: HeroProps) {
         </motion.div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.6 }}
-        className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-xs uppercase tracking-[0.35em] text-muted-foreground"
-      >
-        <span>Use menu to explore</span>
-        <ArrowDown className="h-4 w-4 animate-bounce" />
-      </motion.div>
     </section>
   )
 }
