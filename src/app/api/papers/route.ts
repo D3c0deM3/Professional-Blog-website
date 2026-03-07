@@ -18,7 +18,9 @@ export async function GET(request: Request) {
       take: limit,
     })
 
-    return NextResponse.json(papers)
+    const response = NextResponse.json(papers)
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300')
+    return response
   } catch (error) {
     console.error('Error fetching papers:', error)
     return NextResponse.json(

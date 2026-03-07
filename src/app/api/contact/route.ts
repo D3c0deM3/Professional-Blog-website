@@ -12,7 +12,9 @@ export async function GET() {
       )
     }
 
-    return NextResponse.json(contact)
+    const response = NextResponse.json(contact)
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300')
+    return response
   } catch (error) {
     console.error('Error fetching contact:', error)
     return NextResponse.json(

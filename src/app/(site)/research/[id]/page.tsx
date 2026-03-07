@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { prisma } from '@/lib/prisma'
 import { stripRichText } from '@/lib/rich-text'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 interface PaperPageProps {
   params: Promise<{ id: string }>

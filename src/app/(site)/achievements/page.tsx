@@ -2,7 +2,7 @@ import Achievements from '@/sections/Achievements'
 import { prisma } from '@/lib/prisma'
 import { getSettingsMap } from '@/lib/site-settings'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 export default async function AchievementsPage() {
   const [settingsMap, achievements, papersCount, achievementsCount] = await Promise.all([

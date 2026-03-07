@@ -7,7 +7,9 @@ export async function GET() {
       orderBy: [{ year: 'desc' }, { order: 'asc' }],
     })
 
-    return NextResponse.json(achievements)
+    const response = NextResponse.json(achievements)
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300')
+    return response
   } catch (error) {
     console.error('Error fetching achievements:', error)
     return NextResponse.json(

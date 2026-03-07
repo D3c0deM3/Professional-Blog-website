@@ -14,12 +14,14 @@ export async function GET() {
       )
     }
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       id: page.id,
       title: page.title,
       content: page.content,
       updatedAt: page.updatedAt,
     })
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300')
+    return response
   } catch (error) {
     console.error('Error fetching about content:', error)
     return NextResponse.json(

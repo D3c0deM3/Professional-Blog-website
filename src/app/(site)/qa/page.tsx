@@ -1,7 +1,7 @@
 import QA from '@/sections/QA'
 import { prisma } from '@/lib/prisma'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 export default async function QAPage() {
   const items = await prisma.qA.findMany({

@@ -8,7 +8,9 @@ export async function GET() {
       orderBy: { order: 'asc' },
     })
 
-    return NextResponse.json(qaItems)
+    const response = NextResponse.json(qaItems)
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300')
+    return response
   } catch (error) {
     console.error('Error fetching Q&A:', error)
     return NextResponse.json(

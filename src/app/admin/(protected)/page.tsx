@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import AdminGlobalSearch from '@/components/admin/AdminGlobalSearch'
 
 interface DashboardStats {
   papers: number
@@ -67,6 +68,11 @@ export default function AdminDashboard() {
             View Website
           </Link>
         </Button>
+      </div>
+
+      {/* Global Search */}
+      <div className="mb-8">
+        <AdminGlobalSearch />
       </div>
 
       {/* Stats Grid */}

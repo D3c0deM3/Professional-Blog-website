@@ -19,7 +19,9 @@ export async function GET(request: Request) {
       take: limit,
     })
 
-    return NextResponse.json(materials)
+    const response = NextResponse.json(materials)
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300')
+    return response
   } catch (error) {
     console.error('Error fetching materials:', error)
     return NextResponse.json(

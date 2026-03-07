@@ -3,7 +3,7 @@ import Footer from '@/components/Footer'
 import SitePageTransition from '@/components/SitePageTransition'
 import { getSettingsMap } from '@/lib/site-settings'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 export default async function SiteLayout({
   children,

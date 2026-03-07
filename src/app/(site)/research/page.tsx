@@ -1,7 +1,7 @@
 import ResearchPapers from '@/sections/ResearchPapers'
 import { prisma } from '@/lib/prisma'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 export default async function ResearchPage() {
   const papers = await prisma.paper.findMany({

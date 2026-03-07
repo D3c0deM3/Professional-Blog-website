@@ -1,7 +1,12 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { usePathname } from 'next/navigation'
-import AlgorithmicBackground from '@/components/AlgorithmicBackground'
+
+const AlgorithmicBackground = dynamic(
+  () => import('@/components/AlgorithmicBackground'),
+  { ssr: false }
+)
 
 export default function BackgroundGate() {
   const pathname = usePathname()
