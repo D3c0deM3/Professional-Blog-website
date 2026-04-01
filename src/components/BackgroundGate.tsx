@@ -14,11 +14,13 @@ export default function BackgroundGate() {
     return null
   }
 
+  const isHomePage = pathname === '/'
+
   return (
     <AlgorithmicBackground
-      density="low"
-      motionScale={0.65}
-      className="fixed inset-0 -z-10 opacity-80"
+      density={isHomePage ? 'medium' : 'low'}
+      motionScale={isHomePage ? 0.9 : 0.6}
+      className={`fixed inset-0 -z-10 ${isHomePage ? 'opacity-[0.92]' : 'opacity-75'}`}
     />
   )
 }

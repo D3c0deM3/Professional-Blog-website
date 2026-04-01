@@ -3,17 +3,18 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { Menu, X } from 'lucide-react'
+import { Binary, Menu, X } from 'lucide-react'
 
 const navLinks = [
   { href: '/', label: 'Home' },
+  { href: '/visualizations', label: 'Visual Lab' },
   { href: '/about', label: 'About' },
-  { href: '/research', label: 'Research Papers' },
-  { href: '/materials', label: 'Academic Materials' },
+  { href: '/research', label: 'Research' },
+  { href: '/materials', label: 'Materials' },
   { href: '/projects', label: 'Projects' },
-  { href: '/achievements', label: 'Achievements' },
+  { href: '/achievements', label: 'Awards' },
   { href: '/qa', label: 'Q&A' },
-  { href: '/ask-question', label: 'Ask a Question' },
+  { href: '/ask-question', label: 'Ask' },
   { href: '/contact', label: 'Contact' },
 ]
 
@@ -64,30 +65,36 @@ export default function Navigation({ siteTitle, professorName }: NavigationProps
 
   const isHomePage = pathname === '/'
   const isSolid = !isHomePage || isScrolled || isMobileMenuOpen
+  const brandLabel = professorName || siteTitle || ''
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-400 ${
         isSolid
-          ? 'bg-white/90 backdrop-blur-xl border-b border-border h-16'
-          : 'bg-transparent h-20'
+          ? 'h-[4.5rem] border-b border-slate-200/80 bg-[rgba(248,251,253,0.82)] shadow-[0_18px_48px_rgba(15,23,42,0.08)] backdrop-blur-2xl'
+          : 'h-20 bg-transparent'
       }`}
       style={{ transitionTimingFunction: 'var(--ease-smooth)' }}
     >
       <nav className="h-full container-padding">
-        <div className="h-full flex items-center justify-between max-w-7xl mx-auto">
+        <div className="mx-auto flex h-full max-w-7xl items-center justify-between">
           <Link
             href="/"
             onClick={(event) => {
               event.preventDefault()
               navigate('/')
             }}
-            className="font-display text-lg md:text-xl tracking-tight hover:text-primary transition-colors duration-300"
+            className="group flex min-w-0 items-center gap-3 transition-colors duration-300"
           >
-            {siteTitle || professorName || ''}
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200/80 bg-white/80 text-primary shadow-sm transition-transform duration-300 group-hover:-translate-y-0.5">
+              <Binary className="h-4 w-4" />
+            </span>
+            <span className="min-w-0 truncate font-display text-base tracking-tight text-slate-950 sm:text-lg md:text-xl">
+              {brandLabel}
+            </span>
           </Link>
 
-          <div className="hidden xl:flex items-center gap-2 rounded-full border border-border/70 bg-white/70 p-1 backdrop-blur-sm">
+          <div className="hidden items-center gap-1 rounded-full border border-slate-200/80 bg-white/75 p-1.5 shadow-sm backdrop-blur-sm xl:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -97,10 +104,10 @@ export default function Navigation({ siteTitle, professorName }: NavigationProps
                   navigate(link.href)
                 }}
                 prefetch
-                className={`rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-300 ${
+                className={`whitespace-nowrap rounded-full px-3 py-2 text-[13px] font-medium transition-all duration-300 ${
                   isLinkActive(pathname || '/', link.href)
                     ? 'bg-primary text-primary-foreground shadow-sm'
-                    : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
+                    : 'text-slate-500 hover:bg-slate-100 hover:text-slate-950'
                 }`}
               >
                 {link.label}
@@ -110,7 +117,7 @@ export default function Navigation({ siteTitle, professorName }: NavigationProps
 
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="xl:hidden p-2 hover:bg-secondary rounded-lg transition-colors duration-300"
+            className="rounded-2xl border border-slate-200/80 bg-white/75 p-2 transition-colors duration-300 hover:bg-slate-100 xl:hidden"
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? (
@@ -124,12 +131,12 @@ export default function Navigation({ siteTitle, professorName }: NavigationProps
 
       {/* Mobile Menu */}
       <div
-        className={`xl:hidden fixed inset-x-0 top-16 bg-white border-b border-border transition-all duration-500 overflow-hidden ${
+        className={`fixed inset-x-0 top-[4.5rem] overflow-hidden border-b border-slate-200/80 bg-[rgba(248,251,253,0.96)] transition-all duration-500 xl:hidden ${
           isMobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
         }`}
         style={{ transitionTimingFunction: 'var(--ease-smooth)' }}
       >
-        <div className="container-padding py-6 space-y-4">
+        <div className="container-padding space-y-4 py-6">
           {navLinks.map((link, index) => (
             <Link
               key={link.href}
@@ -139,10 +146,10 @@ export default function Navigation({ siteTitle, professorName }: NavigationProps
                 navigate(link.href)
               }}
               prefetch
-              className={`block rounded-lg px-3 py-2 text-lg font-medium transition-all duration-300 ${
+              className={`block rounded-2xl px-4 py-3 text-base font-medium transition-all duration-300 ${
                 isLinkActive(pathname || '/', link.href)
-                  ? 'bg-secondary text-foreground'
-                  : 'text-muted-foreground hover:bg-secondary/60 hover:text-foreground'
+                  ? 'bg-slate-950 text-white'
+                  : 'bg-white/70 text-slate-600 hover:bg-slate-100 hover:text-slate-950'
               }`}
               style={{
                 transitionDelay: isMobileMenuOpen ? `${index * 50}ms` : '0ms',
