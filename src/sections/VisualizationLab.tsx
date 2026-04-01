@@ -293,10 +293,10 @@ function SectionHeading({
   return (
     <div className="max-w-3xl space-y-4">
       <div className="algorithm-kicker">{eyebrow}</div>
-      <h1 className="text-balance text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
+      <h1 className="text-balance text-4xl font-semibold tracking-tight text-slate-950 dark:text-white sm:text-5xl">
         {title}
       </h1>
-      <p className="max-w-2xl text-base text-slate-600 sm:text-lg">{description}</p>
+      <p className="max-w-2xl text-base text-slate-600 dark:text-slate-300 sm:text-lg">{description}</p>
     </div>
   )
 }
@@ -316,7 +316,7 @@ function BinaryTreeCanvas({
 
   if (!layout.nodes.length) {
     return (
-      <div className={cn('flex min-h-[320px] items-center justify-center rounded-[1.4rem] text-sm text-slate-500', className)}>
+      <div className={cn('flex min-h-[320px] items-center justify-center rounded-[1.4rem] text-sm text-slate-500 dark:text-slate-400', className)}>
         Add values to generate the tree structure.
       </div>
     )
@@ -355,7 +355,7 @@ function BinaryTreeCanvas({
                 opacity: active ? 0.92 : 0.45,
               }}
               transition={{ type: 'spring', stiffness: 180, damping: 18 }}
-              stroke={variant === 'avl' ? (active ? '#14b8a6' : 'rgba(153, 246, 228, 0.45)') : active ? '#0f766e' : 'rgba(30, 41, 59, 0.3)'}
+              className={variant === 'avl' ? (active ? 'stroke-[#14b8a6]' : 'stroke-[rgba(153,246,228,0.45)]') : active ? 'stroke-[#0f766e] dark:stroke-[#5eead4]' : 'stroke-[rgba(30,41,59,0.3)] dark:stroke-[rgba(255,255,255,0.4)]'}
               strokeLinecap="round"
             />
           )
@@ -384,8 +384,7 @@ function BinaryTreeCanvas({
                   r: isActive ? 7.8 : 7,
                 }}
                 transition={{ type: 'spring', stiffness: 180, damping: 18 }}
-                fill={variant === 'avl' ? (isActive ? '#14b8a6' : '#0f172a') : isActive ? '#0f766e' : '#f8fafc'}
-                stroke={variant === 'avl' ? 'rgba(226, 232, 240, 0.8)' : 'rgba(15, 23, 42, 0.18)'}
+                className={`${variant === 'avl' ? (isActive ? 'fill-[#14b8a6]' : 'fill-[#0f172a]') : isActive ? 'fill-[#0f766e] dark:fill-[#5eead4]' : 'fill-[#f8fafc] dark:fill-[#1e293b]'} ${variant === 'avl' ? 'stroke-[rgba(226,232,240,0.8)]' : 'stroke-[rgba(15,23,42,0.18)] dark:stroke-[rgba(255,255,255,0.2)]'}`}
                 strokeWidth="1.6"
               />
               <motion.text
@@ -395,7 +394,7 @@ function BinaryTreeCanvas({
                 fontSize="4"
                 fontWeight="700"
                 textAnchor="middle"
-                fill={variant === 'avl' ? '#f8fafc' : isActive ? '#ecfeff' : '#0f172a'}
+                className={variant === 'avl' ? 'fill-[#f8fafc]' : isActive ? 'fill-[#ecfeff]' : 'fill-[#0f172a] dark:fill-[#f8fafc]'}
               >
                 {node.value}
               </motion.text>
@@ -433,7 +432,7 @@ function GraphCanvas({
 }) {
   if (!nodes.length) {
     return (
-      <div className="flex h-[340px] items-center justify-center rounded-[1.5rem] border border-slate-200/80 bg-white/70 text-sm text-slate-500">
+      <div className="flex h-[340px] items-center justify-center rounded-[1.5rem] border border-slate-200/80 bg-white/70 dark:bg-slate-800/70 dark:border-white/10 dark:bg-slate-900/40 text-sm text-slate-500 dark:text-slate-400">
         Add graph nodes to start the network.
       </div>
     )
@@ -453,7 +452,7 @@ function GraphCanvas({
   )
 
   return (
-    <div className="algorithm-diagram relative overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white/70">
+    <div className="algorithm-diagram relative overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white/70 dark:bg-slate-800/70 dark:border-white/10 dark:bg-slate-900/40">
       <motion.div
         aria-hidden
         className="absolute inset-6 rounded-full border border-dashed border-emerald-500/20"
@@ -480,7 +479,7 @@ function GraphCanvas({
                 strokeWidth: edgeId === activeEdge ? 2.4 : 1.6,
               }}
               transition={{ type: 'spring', stiffness: 160, damping: 18 }}
-              stroke={edgeId === activeEdge ? '#0f766e' : 'rgba(15, 23, 42, 0.34)'}
+              className={edgeId === activeEdge ? 'stroke-[#0f766e] dark:stroke-[#5eead4]' : 'stroke-[rgba(15,23,42,0.34)] dark:stroke-[rgba(255,255,255,0.4)]'}
               strokeLinecap="round"
             />
           )
@@ -501,8 +500,7 @@ function GraphCanvas({
                   r: isActive ? 7.4 : 6.6,
                 }}
                 transition={{ type: 'spring', stiffness: 180, damping: 18 }}
-                fill={isActive ? '#0f766e' : '#f8fafc'}
-                stroke={isActive ? '#ccfbf1' : 'rgba(15, 23, 42, 0.16)'}
+                className={`${isActive ? 'fill-[#0f766e] dark:fill-[#5eead4]' : 'fill-[#f8fafc] dark:fill-[#1e293b]'} ${isActive ? 'stroke-[#ccfbf1] dark:stroke-[#14b8a6]' : 'stroke-[rgba(15,23,42,0.16)] dark:stroke-[rgba(255,255,255,0.2)]'}`}
                 strokeWidth="1.6"
               />
               <motion.text
@@ -512,7 +510,7 @@ function GraphCanvas({
                 fontSize="4.1"
                 fontWeight="700"
                 textAnchor="middle"
-                fill={isActive ? '#ecfeff' : '#0f172a'}
+                className={isActive ? 'fill-[#ecfeff]' : 'fill-[#0f172a] dark:fill-[#f8fafc]'}
               >
                 {node}
               </motion.text>
@@ -900,7 +898,7 @@ export default function VisualizationLab() {
         />
 
         <Tabs defaultValue="avl" className="space-y-5">
-          <TabsList className="h-auto w-full flex-nowrap justify-start gap-2 overflow-x-auto rounded-[1.4rem] border border-slate-200/80 bg-white/70 p-2">
+          <TabsList className="h-auto w-full flex-nowrap justify-start gap-2 overflow-x-auto rounded-[1.4rem] border border-slate-200/80 bg-white/70 dark:bg-slate-800/70 dark:border-white/10 dark:bg-slate-900/40 p-2">
             <TabsTrigger value="avl" className="min-w-fit whitespace-nowrap rounded-full px-4 py-2 data-[state=active]:bg-slate-950 data-[state=active]:text-white">AVL</TabsTrigger>
             <TabsTrigger value="bst" className="min-w-fit whitespace-nowrap rounded-full px-4 py-2 data-[state=active]:bg-slate-950 data-[state=active]:text-white">BST</TabsTrigger>
             <TabsTrigger value="graph" className="min-w-fit whitespace-nowrap rounded-full px-4 py-2 data-[state=active]:bg-slate-950 data-[state=active]:text-white">Graph</TabsTrigger>
@@ -916,8 +914,8 @@ export default function VisualizationLab() {
                 <div className="space-y-5">
                   <div>
                     <p className="algorithm-kicker">Rotation Demo</p>
-                    <h3 className="mt-3 text-2xl font-semibold text-slate-950">Smooth balancing of the current tree</h3>
-                    <p className="mt-3 text-sm leading-6 text-slate-600">
+                    <h3 className="mt-3 text-2xl font-semibold text-slate-950 dark:text-white">Smooth balancing of the current tree</h3>
+                    <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
                       The structure starts as the raw BST formed by insertion order. Press Balance Tree to animate the rotations that compress it into a balanced form.
                     </p>
                   </div>
@@ -927,7 +925,7 @@ export default function VisualizationLab() {
                       value={avlInput}
                       onChange={(event) => setAvlInput(event.target.value)}
                       placeholder="Enter an integer"
-                      className="h-11 rounded-2xl border-slate-300 bg-white/90"
+                      className="h-11 rounded-2xl border-slate-300 dark:border-white/20 bg-white/90 dark:bg-slate-800/90 dark:bg-accent/10 dark:text-accent"
                     />
                     <Button onClick={handleAvlInsert} className="h-11 rounded-2xl px-5">Insert</Button>
                     <Button onClick={handleAvlRemove} variant="outline" className="h-11 rounded-2xl px-5">
@@ -937,7 +935,7 @@ export default function VisualizationLab() {
                   </div>
 
                   <div className="flex flex-wrap gap-2">
-                    <Button onClick={handleAvlBalance} className="rounded-full bg-emerald-700 text-white hover:bg-emerald-800">
+                    <Button onClick={handleAvlBalance} className="rounded-full bg-emerald-700 text-white hover:bg-emerald-800 dark:hover:bg-emerald-600">
                       Balance Tree
                     </Button>
                     <Button onClick={() => resetAvlToRaw(avlValues)} variant="outline" className="rounded-full">
@@ -948,7 +946,7 @@ export default function VisualizationLab() {
                         key={preset.label}
                         variant="outline"
                         onClick={() => resetAvlToRaw(preset.values, `${preset.label} loaded. Press Balance Tree to animate the rotations.`)}
-                        className="rounded-full border-emerald-700/20 bg-emerald-50/80 text-emerald-800 hover:bg-emerald-100"
+                        className="rounded-full border-emerald-700/20 dark:border-emerald-400/20 bg-emerald-50/80 dark:bg-emerald-400/10 text-emerald-800 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-400/20"
                       >
                         {preset.label}
                       </Button>
@@ -956,8 +954,8 @@ export default function VisualizationLab() {
                   </div>
 
                   <SurfacePanel className="p-4">
-                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Balancing thread</p>
-                    <p className="mt-3 text-sm font-medium text-slate-700">{avlNote}</p>
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">Balancing thread</p>
+                    <p className="mt-3 text-sm font-medium text-slate-700 dark:text-slate-200">{avlNote}</p>
                   </SurfacePanel>
 
                   <div className="flex flex-wrap gap-2">
@@ -968,7 +966,7 @@ export default function VisualizationLab() {
                           'rounded-full border px-3 py-1 text-xs font-semibold',
                           avlHighlight.includes(value)
                             ? 'border-emerald-600/20 bg-emerald-500/10 text-emerald-700'
-                            : 'border-slate-200 bg-white text-slate-600'
+                            : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300'
                         )}
                       >
                         {value}
@@ -993,8 +991,8 @@ export default function VisualizationLab() {
                 <div className="space-y-5">
                   <div>
                     <p className="algorithm-kicker">Ordered Search</p>
-                    <h3 className="mt-3 text-2xl font-semibold text-slate-950">Binary Search Tree insertion and removal</h3>
-                    <p className="mt-3 text-sm leading-6 text-slate-600">
+                    <h3 className="mt-3 text-2xl font-semibold text-slate-950 dark:text-white">Binary Search Tree insertion and removal</h3>
+                    <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
                       Enter an integer to grow or shrink the tree. The structure rebuilds from insertion order so students can see how shape depends on the sequence.
                     </p>
                   </div>
@@ -1004,7 +1002,7 @@ export default function VisualizationLab() {
                       value={bstInput}
                       onChange={(event) => setBstInput(event.target.value)}
                       placeholder="Enter an integer"
-                      className="h-11 rounded-2xl border-slate-300 bg-white/90"
+                      className="h-11 rounded-2xl border-slate-300 dark:border-white/20 bg-white/90 dark:bg-slate-800/90 dark:bg-accent/10 dark:text-accent"
                     />
                     <Button onClick={handleBstInsert} className="h-11 rounded-2xl px-5">Insert</Button>
                     <Button onClick={handleBstRemove} variant="outline" className="h-11 rounded-2xl px-5">
@@ -1014,8 +1012,8 @@ export default function VisualizationLab() {
                   </div>
 
                   <SurfacePanel className="p-4">
-                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Current operation</p>
-                    <p className="mt-3 text-sm font-medium text-slate-700">{bstNote}</p>
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">Current operation</p>
+                    <p className="mt-3 text-sm font-medium text-slate-700 dark:text-slate-200">{bstNote}</p>
                   </SurfacePanel>
                 </div>
 
@@ -1023,7 +1021,7 @@ export default function VisualizationLab() {
                   root={bstRoot}
                   highlightValues={bstHighlight}
                   variant="bst"
-                  className="min-h-[360px] border border-slate-200/80 bg-white/75"
+                  className="min-h-[360px] border border-slate-200/80 bg-white/75 dark:bg-slate-800/75 dark:border-white/10 dark:bg-slate-900/50"
                 />
               </div>
             </SurfacePanel>
@@ -1035,8 +1033,8 @@ export default function VisualizationLab() {
                 <div className="space-y-5">
                   <div>
                     <p className="algorithm-kicker">Connectivity</p>
-                    <h3 className="mt-3 text-2xl font-semibold text-slate-950">Graph construction with live topology shifts</h3>
-                    <p className="mt-3 text-sm leading-6 text-slate-600">
+                    <h3 className="mt-3 text-2xl font-semibold text-slate-950 dark:text-white">Graph construction with live topology shifts</h3>
+                    <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
                       Add or remove nodes, then connect them with edges. The graph redistributes itself to keep the structure legible as it grows.
                     </p>
                   </div>
@@ -1047,7 +1045,7 @@ export default function VisualizationLab() {
                         value={graphNodeInput}
                         onChange={(event) => setGraphNodeInput(event.target.value)}
                         placeholder="Node label"
-                        className="h-11 rounded-2xl border-slate-300 bg-white/90"
+                        className="h-11 rounded-2xl border-slate-300 dark:border-white/20 bg-white/90 dark:bg-slate-800/90 dark:bg-accent/10 dark:text-accent"
                       />
                       <Button onClick={addGraphNode} className="h-11 rounded-2xl px-5">Add Node</Button>
                       <Button onClick={removeGraphNode} variant="outline" className="h-11 rounded-2xl px-5">
@@ -1061,13 +1059,13 @@ export default function VisualizationLab() {
                         value={graphSourceInput}
                         onChange={(event) => setGraphSourceInput(event.target.value)}
                         placeholder="Source"
-                        className="h-11 rounded-2xl border-slate-300 bg-white/90"
+                        className="h-11 rounded-2xl border-slate-300 dark:border-white/20 bg-white/90 dark:bg-slate-800/90 dark:bg-accent/10 dark:text-accent"
                       />
                       <Input
                         value={graphTargetInput}
                         onChange={(event) => setGraphTargetInput(event.target.value)}
                         placeholder="Target"
-                        className="h-11 rounded-2xl border-slate-300 bg-white/90"
+                        className="h-11 rounded-2xl border-slate-300 dark:border-white/20 bg-white/90 dark:bg-slate-800/90 dark:bg-accent/10 dark:text-accent"
                       />
                     </div>
                     <Button onClick={addGraphEdge} variant="outline" className="h-11 rounded-2xl border-sky-700/20 bg-sky-50/80 text-sky-800 hover:bg-sky-100">
@@ -1076,8 +1074,8 @@ export default function VisualizationLab() {
                   </div>
 
                   <SurfacePanel className="p-4">
-                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Graph commentary</p>
-                    <p className="mt-3 text-sm font-medium text-slate-700">{graphNote}</p>
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">Graph commentary</p>
+                    <p className="mt-3 text-sm font-medium text-slate-700 dark:text-slate-200">{graphNote}</p>
                   </SurfacePanel>
                 </div>
 
@@ -1097,8 +1095,8 @@ export default function VisualizationLab() {
                 <div className="space-y-5">
                   <div>
                     <p className="algorithm-kicker">Sequential Links</p>
-                    <h3 className="mt-3 text-2xl font-semibold text-slate-950">Linked list insertions at head and tail</h3>
-                    <p className="mt-3 text-sm leading-6 text-slate-600">
+                    <h3 className="mt-3 text-2xl font-semibold text-slate-950 dark:text-white">Linked list insertions at head and tail</h3>
+                    <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
                       Add labels to the front or back of the chain, then remove a label to see how a pointer-based list reconnects.
                     </p>
                   </div>
@@ -1108,7 +1106,7 @@ export default function VisualizationLab() {
                       value={listInput}
                       onChange={(event) => setListInput(event.target.value)}
                       placeholder="Node label"
-                      className="h-11 rounded-2xl border-slate-300 bg-white/90"
+                      className="h-11 rounded-2xl border-slate-300 dark:border-white/20 bg-white/90 dark:bg-slate-800/90 dark:bg-accent/10 dark:text-accent"
                     />
                     <div className="grid gap-3 sm:grid-cols-3">
                       <Button onClick={addToListFront} className="h-11 rounded-2xl">Add Front</Button>
@@ -1121,12 +1119,12 @@ export default function VisualizationLab() {
                   </div>
 
                   <SurfacePanel className="p-4">
-                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Pointer note</p>
-                    <p className="mt-3 text-sm font-medium text-slate-700">{listNote}</p>
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">Pointer note</p>
+                    <p className="mt-3 text-sm font-medium text-slate-700 dark:text-slate-200">{listNote}</p>
                   </SurfacePanel>
                 </div>
 
-                <div className="algorithm-diagram flex min-h-[320px] flex-wrap items-center gap-3 rounded-[1.5rem] border border-slate-200/80 bg-white/75 p-6">
+                <div className="algorithm-diagram flex min-h-[320px] flex-wrap items-center gap-3 rounded-[1.5rem] border border-slate-200/80 bg-white/75 dark:bg-slate-800/75 dark:border-white/10 dark:bg-slate-900/50 p-6">
                   <AnimatePresence initial={false}>
                     {listValues.map((value, index) => (
                       <motion.div
@@ -1142,8 +1140,8 @@ export default function VisualizationLab() {
                           className={cn(
                             'rounded-[1.25rem] border px-5 py-4 text-sm font-semibold shadow-sm',
                             value === listHighlight
-                              ? 'border-emerald-600/20 bg-emerald-500/10 text-emerald-800'
-                              : 'border-slate-200 bg-white text-slate-700'
+                              ? 'border-emerald-600/20 dark:border-emerald-400/20 bg-emerald-500/10 dark:bg-emerald-400/20 text-emerald-800 dark:text-emerald-400'
+                              : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200'
                           )}
                         >
                           {value}
@@ -1158,7 +1156,7 @@ export default function VisualizationLab() {
                             →
                           </motion.div>
                         ) : (
-                          <div className="rounded-full border border-dashed border-slate-300 px-3 py-1 text-xs uppercase tracking-[0.22em] text-slate-400">
+                          <div className="rounded-full border border-dashed border-slate-300 dark:border-white/20 px-3 py-1 text-xs uppercase tracking-[0.22em] text-slate-400">
                             null
                           </div>
                         )}
@@ -1176,8 +1174,8 @@ export default function VisualizationLab() {
                 <div className="space-y-5">
                   <div>
                     <p className="algorithm-kicker">Circular Traversal</p>
-                    <h3 className="mt-3 text-2xl font-semibold text-slate-950">Circular linked list with continuous flow</h3>
-                    <p className="mt-3 text-sm leading-6 text-slate-600">
+                    <h3 className="mt-3 text-2xl font-semibold text-slate-950 dark:text-white">Circular linked list with continuous flow</h3>
+                    <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
                       Add or remove nodes from the circular list and watch the tail reconnect to the head so traversal never terminates.
                     </p>
                   </div>
@@ -1187,7 +1185,7 @@ export default function VisualizationLab() {
                       value={cycleInput}
                       onChange={(event) => setCycleInput(event.target.value)}
                       placeholder="Node label"
-                      className="h-11 rounded-2xl border-slate-300 bg-white/90"
+                      className="h-11 rounded-2xl border-slate-300 dark:border-white/20 bg-white/90 dark:bg-slate-800/90 dark:bg-accent/10 dark:text-accent"
                     />
                     <Button onClick={addToCycle} className="h-11 rounded-2xl px-5">Add Node</Button>
                     <Button onClick={removeFromCycle} variant="outline" className="h-11 rounded-2xl px-5">
@@ -1197,12 +1195,12 @@ export default function VisualizationLab() {
                   </div>
 
                   <SurfacePanel className="p-4">
-                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Cycle note</p>
-                    <p className="mt-3 text-sm font-medium text-slate-700">{cycleNote}</p>
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">Cycle note</p>
+                    <p className="mt-3 text-sm font-medium text-slate-700 dark:text-slate-200">{cycleNote}</p>
                   </SurfacePanel>
                 </div>
 
-                <div className="algorithm-diagram relative flex min-h-[360px] items-center justify-center overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white/75 p-6">
+                <div className="algorithm-diagram relative flex min-h-[360px] items-center justify-center overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white/75 dark:bg-slate-800/75 dark:border-white/10 dark:bg-slate-900/50 p-6">
                   <motion.div
                     aria-hidden
                     className="absolute h-56 w-56 rounded-full border border-dashed border-emerald-500/25"
@@ -1225,7 +1223,7 @@ export default function VisualizationLab() {
                             initial={false}
                             animate={{ x1: x, y1: y, x2: nextX, y2: nextY }}
                             transition={{ type: 'spring', stiffness: 180, damping: 20 }}
-                            stroke="rgba(15, 23, 42, 0.28)"
+                            className="stroke-[rgba(15,23,42,0.28)] dark:stroke-[rgba(255,255,255,0.4)]"
                             strokeWidth="1.5"
                             strokeLinecap="round"
                           />
@@ -1233,8 +1231,7 @@ export default function VisualizationLab() {
                             initial={false}
                             animate={{ cx: x, cy: y, r: isActive ? 7.2 : 6.5 }}
                             transition={{ type: 'spring', stiffness: 180, damping: 20 }}
-                            fill={isActive ? '#0f766e' : '#f8fafc'}
-                            stroke={isActive ? '#ccfbf1' : 'rgba(15, 23, 42, 0.16)'}
+                            className={`${isActive ? 'fill-[#0f766e] dark:fill-[#5eead4]' : 'fill-[#f8fafc] dark:fill-[#1e293b]'} ${isActive ? 'stroke-[#ccfbf1] dark:stroke-[#14b8a6]' : 'stroke-[rgba(15,23,42,0.16)] dark:stroke-[rgba(255,255,255,0.2)]'}`}
                             strokeWidth="1.6"
                           />
                           <motion.text
@@ -1244,7 +1241,7 @@ export default function VisualizationLab() {
                             fontSize="4"
                             fontWeight="700"
                             textAnchor="middle"
-                            fill={isActive ? '#ecfeff' : '#0f172a'}
+                            className={isActive ? 'fill-[#ecfeff]' : 'fill-[#0f172a] dark:fill-[#f8fafc]'}
                           >
                             {value}
                           </motion.text>
@@ -1263,8 +1260,8 @@ export default function VisualizationLab() {
                 <div className="space-y-5">
                   <div>
                     <p className="algorithm-kicker">LIFO Behavior</p>
-                    <h3 className="mt-3 text-2xl font-semibold text-slate-950">Stack push and pop visualization</h3>
-                    <p className="mt-3 text-sm leading-6 text-slate-600">
+                    <h3 className="mt-3 text-2xl font-semibold text-slate-950 dark:text-white">Stack push and pop visualization</h3>
+                    <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
                       Push values onto the stack to grow it upward, then pop to remove the most recent frame. This is useful for recursion, call stacks, and backtracking discussions.
                     </p>
                   </div>
@@ -1274,19 +1271,19 @@ export default function VisualizationLab() {
                       value={stackInput}
                       onChange={(event) => setStackInput(event.target.value)}
                       placeholder="Frame label"
-                      className="h-11 rounded-2xl border-slate-300 bg-white/90"
+                      className="h-11 rounded-2xl border-slate-300 dark:border-white/20 bg-white/90 dark:bg-slate-800/90 dark:bg-accent/10 dark:text-accent"
                     />
                     <Button onClick={pushStack} className="h-11 rounded-2xl px-5">Push</Button>
                     <Button onClick={popStack} variant="outline" className="h-11 rounded-2xl px-5">Pop</Button>
                   </div>
 
                   <SurfacePanel className="p-4">
-                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Stack note</p>
-                    <p className="mt-3 text-sm font-medium text-slate-700">{stackNote}</p>
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">Stack note</p>
+                    <p className="mt-3 text-sm font-medium text-slate-700 dark:text-slate-200">{stackNote}</p>
                   </SurfacePanel>
                 </div>
 
-                <div className="algorithm-diagram flex min-h-[360px] items-end justify-center rounded-[1.5rem] border border-slate-200/80 bg-white/75 p-6">
+                <div className="algorithm-diagram flex min-h-[360px] items-end justify-center rounded-[1.5rem] border border-slate-200/80 bg-white/75 dark:bg-slate-800/75 dark:border-white/10 dark:bg-slate-900/50 p-6">
                   <div className="flex w-full max-w-xs flex-col-reverse gap-3">
                     <AnimatePresence initial={false}>
                       {stackValues.map((value, index) => (
@@ -1300,15 +1297,15 @@ export default function VisualizationLab() {
                           className={cn(
                             'rounded-[1.25rem] border px-5 py-4 text-center text-sm font-semibold shadow-sm',
                             value === stackHighlight
-                              ? 'border-emerald-600/20 bg-emerald-500/10 text-emerald-800'
-                              : 'border-slate-200 bg-white text-slate-700'
+                              ? 'border-emerald-600/20 dark:border-emerald-400/20 bg-emerald-500/10 dark:bg-emerald-400/20 text-emerald-800 dark:text-emerald-400'
+                              : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200'
                           )}
                         >
                           {value}
                         </motion.div>
                       ))}
                     </AnimatePresence>
-                    <div className="rounded-2xl border border-dashed border-slate-300 px-4 py-2 text-center text-xs uppercase tracking-[0.22em] text-slate-400">
+                    <div className="rounded-2xl border border-dashed border-slate-300 dark:border-white/20 px-4 py-2 text-center text-xs uppercase tracking-[0.22em] text-slate-400">
                       stack base
                     </div>
                   </div>
@@ -1323,8 +1320,8 @@ export default function VisualizationLab() {
                 <div className="space-y-5">
                   <div>
                     <p className="algorithm-kicker">FIFO Behavior</p>
-                    <h3 className="mt-3 text-2xl font-semibold text-slate-950">Queue enqueue and dequeue visualization</h3>
-                    <p className="mt-3 text-sm leading-6 text-slate-600">
+                    <h3 className="mt-3 text-2xl font-semibold text-slate-950 dark:text-white">Queue enqueue and dequeue visualization</h3>
+                    <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
                       Enqueue grows the rear of the line, and dequeue removes from the front. This is useful for scheduling, buffering, and breadth-first processing intuition.
                     </p>
                   </div>
@@ -1334,19 +1331,19 @@ export default function VisualizationLab() {
                       value={queueInput}
                       onChange={(event) => setQueueInput(event.target.value)}
                       placeholder="Queue item"
-                      className="h-11 rounded-2xl border-slate-300 bg-white/90"
+                      className="h-11 rounded-2xl border-slate-300 dark:border-white/20 bg-white/90 dark:bg-slate-800/90 dark:bg-accent/10 dark:text-accent"
                     />
                     <Button onClick={enqueueValue} className="h-11 rounded-2xl px-5">Enqueue</Button>
                     <Button onClick={dequeueValue} variant="outline" className="h-11 rounded-2xl px-5">Dequeue</Button>
                   </div>
 
                   <SurfacePanel className="p-4">
-                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Queue note</p>
-                    <p className="mt-3 text-sm font-medium text-slate-700">{queueNote}</p>
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">Queue note</p>
+                    <p className="mt-3 text-sm font-medium text-slate-700 dark:text-slate-200">{queueNote}</p>
                   </SurfacePanel>
                 </div>
 
-                <div className="algorithm-diagram flex min-h-[360px] flex-col justify-center rounded-[1.5rem] border border-slate-200/80 bg-white/75 p-6">
+                <div className="algorithm-diagram flex min-h-[360px] flex-col justify-center rounded-[1.5rem] border border-slate-200/80 bg-white/75 dark:bg-slate-800/75 dark:border-white/10 dark:bg-slate-900/50 p-6">
                   <div className="mb-4 flex items-center justify-between text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">
                     <span>Front</span>
                     <span>Rear</span>
@@ -1364,8 +1361,8 @@ export default function VisualizationLab() {
                           className={cn(
                             'rounded-[1.25rem] border px-5 py-4 text-sm font-semibold shadow-sm',
                             value === queueHighlight
-                              ? 'border-emerald-600/20 bg-emerald-500/10 text-emerald-800'
-                              : 'border-slate-200 bg-white text-slate-700'
+                              ? 'border-emerald-600/20 dark:border-emerald-400/20 bg-emerald-500/10 dark:bg-emerald-400/20 text-emerald-800 dark:text-emerald-400'
+                              : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200'
                           )}
                         >
                           {value}
@@ -1373,7 +1370,7 @@ export default function VisualizationLab() {
                       ))}
                     </AnimatePresence>
                     {!queueValues.length && (
-                      <div className="rounded-2xl border border-dashed border-slate-300 px-5 py-4 text-sm text-slate-400">
+                      <div className="rounded-2xl border border-dashed border-slate-300 dark:border-white/20 px-5 py-4 text-sm text-slate-400">
                         Queue is empty
                       </div>
                     )}

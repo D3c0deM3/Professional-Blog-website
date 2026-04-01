@@ -47,10 +47,10 @@ function HeroAlgorithmBoard() {
       <div className="pointer-events-none absolute -left-12 bottom-0 h-36 w-36 rounded-full border border-sky-500/20 bg-sky-300/10 blur-2xl" />
 
       <div className="relative grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-        <div className="rounded-2xl border border-slate-200/80 bg-white/70 px-5 py-5 shadow-sm md:col-span-2">
-          <p className="text-xs uppercase tracking-[0.28em] text-slate-500">Core Teaching Areas</p>
-          <h3 className="mt-3 text-2xl font-semibold text-slate-950">From structural invariants to efficient algorithms.</h3>
-          <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600">
+        <div className="rounded-2xl border border-slate-200/80 bg-white/70 px-5 py-5 dark:border-white/10 dark:bg-slate-950/70 shadow-sm md:col-span-2">
+          <p className="text-xs uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400">Core Teaching Areas</p>
+          <h3 className="mt-3 text-2xl font-semibold text-slate-950 dark:text-white">From structural invariants to efficient algorithms.</h3>
+          <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-300">
             The portfolio highlights the main foundations of data structures and algorithms: correctness, efficiency, balancing, traversal, and the way abstract models map to executable systems.
           </p>
         </div>
@@ -65,7 +65,7 @@ function HeroAlgorithmBoard() {
         ].map((row) => (
           <div
             key={row}
-            className="rounded-2xl border border-slate-200/80 bg-white/80 p-5 text-sm font-medium leading-6 text-slate-700 shadow-sm"
+            className="rounded-2xl border border-slate-200/80 bg-white/80 dark:border-white/10 dark:bg-slate-950/80 p-5 text-sm font-medium leading-6 text-slate-700 dark:text-slate-200 shadow-sm"
           >
             {row}
           </div>
@@ -99,9 +99,9 @@ export default function Hero({ settings }: HeroProps) {
                 <div className="space-y-5">
                   <RichContent
                     content={headline}
-                    className="text-balance font-display text-4xl text-slate-950 sm:text-5xl md:text-6xl lg:text-[4.4rem] [&_p]:my-0 [&_p]:leading-[1.02] [&_h1]:my-0 [&_h1]:text-inherit [&_h2]:my-0 [&_h2]:text-inherit"
+                    className="text-balance font-display text-4xl text-slate-950 dark:text-white sm:text-5xl md:text-6xl lg:text-[4.4rem] [&_p]:my-0 [&_p]:leading-[1.02] [&_h1]:my-0 [&_h1]:text-inherit [&_h2]:my-0 [&_h2]:text-inherit"
                   />
-                  <div className="max-w-2xl text-lg text-slate-600 [&_p]:my-0">
+                  <div className="max-w-2xl text-lg text-slate-600 dark:text-slate-300 [&_p]:my-0">
                     <RichContent
                       content={
                         settings.heroSubheadline ||
@@ -114,14 +114,14 @@ export default function Hero({ settings }: HeroProps) {
 
               <div className="flex flex-col gap-3 sm:flex-row">
                 {primaryLabel && primaryLink && (
-                  <Button asChild size="lg" className="rounded-full px-7 shadow-lg shadow-slate-900/10">
+                  <Button asChild size="lg" className="rounded-full px-7 shadow-lg shadow-slate-900/10 dark:shadow-black/50">
                     <Link href={primaryLink}>
                       {primaryLabel}
                       <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
                 )}
-                <Button asChild size="lg" variant="outline" className="rounded-full border-emerald-700/20 bg-emerald-50/70 px-7 text-emerald-800 hover:bg-emerald-100">
+                <Button asChild size="lg" variant="outline" className="rounded-full border-emerald-700/20 bg-emerald-50/70 px-7 text-emerald-800 hover:bg-emerald-100 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-400 dark:hover:bg-emerald-400/20">
                   <Link href="/visualizations">Visualization Lab</Link>
                 </Button>
               </div>

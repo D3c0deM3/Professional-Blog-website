@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { Binary, Menu, X } from 'lucide-react'
+import { ThemeToggle } from './ThemeToggle'
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -71,7 +72,7 @@ export default function Navigation({ siteTitle, professorName }: NavigationProps
     <header
       className={`fixed left-0 right-0 top-0 z-50 transition-all duration-400 ${
         isSolid
-          ? 'h-[4.5rem] border-b border-slate-200/80 bg-[rgba(248,251,253,0.82)] shadow-[0_18px_48px_rgba(15,23,42,0.08)] backdrop-blur-2xl'
+          ? 'h-[4.5rem] border-b border-slate-200/80 dark:border-white/10 bg-[rgba(248,251,253,0.82)] shadow-[0_18px_48px_rgba(15,23,42,0.08)] dark:bg-slate-950/80 dark:shadow-[0_18px_48px_rgba(0,0,0,0.5)] backdrop-blur-2xl'
           : 'h-20 bg-transparent'
       }`}
       style={{ transitionTimingFunction: 'var(--ease-smooth)' }}
@@ -86,15 +87,15 @@ export default function Navigation({ siteTitle, professorName }: NavigationProps
             }}
             className="group flex min-w-0 items-center gap-3 transition-colors duration-300"
           >
-            <span className="flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200/80 bg-white/80 text-primary shadow-sm transition-transform duration-300 group-hover:-translate-y-0.5">
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white/80 dark:border-white/10 dark:bg-slate-900/80 text-primary shadow-sm transition-transform duration-300 group-hover:-translate-y-0.5">
               <Binary className="h-4 w-4" />
             </span>
-            <span className="min-w-0 truncate font-display text-base tracking-tight text-slate-950 sm:text-lg md:text-xl">
+            <span className="min-w-0 truncate font-display text-base tracking-tight text-slate-950 dark:text-white sm:text-lg md:text-xl">
               {brandLabel}
             </span>
           </Link>
 
-          <div className="hidden items-center gap-1 rounded-full border border-slate-200/80 bg-white/75 p-1.5 shadow-sm backdrop-blur-sm xl:flex">
+          <div className="hidden items-center gap-1 rounded-full border border-slate-200/80 dark:border-white/10 bg-white/75 dark:border-white/10 dark:bg-slate-900/80 p-1.5 shadow-sm backdrop-blur-sm xl:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -107,31 +108,37 @@ export default function Navigation({ siteTitle, professorName }: NavigationProps
                 className={`whitespace-nowrap rounded-full px-3 py-2 text-[13px] font-medium transition-all duration-300 ${
                   isLinkActive(pathname || '/', link.href)
                     ? 'bg-primary text-primary-foreground shadow-sm'
-                    : 'text-slate-500 hover:bg-slate-100 hover:text-slate-950'
+                    : 'text-slate-500 hover:bg-slate-100 hover:text-slate-950 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white dark:text-white'
                 }`}
               >
                 {link.label}
               </Link>
             ))}
+            <div className="ml-2 pl-2 border-l border-slate-200 dark:border-white/10 flex items-center">
+              <ThemeToggle />
+            </div>
           </div>
 
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="rounded-2xl border border-slate-200/80 bg-white/75 p-2 transition-colors duration-300 hover:bg-slate-100 xl:hidden"
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </button>
+          <div className="flex items-center gap-3 xl:hidden">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white/75 dark:bg-slate-900/80 p-2 transition-colors duration-300 hover:bg-slate-100 xl:hidden"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
+          </div>
         </div>
       </nav>
 
       {/* Mobile Menu */}
       <div
-        className={`fixed inset-x-0 top-[4.5rem] overflow-hidden border-b border-slate-200/80 bg-[rgba(248,251,253,0.96)] transition-all duration-500 xl:hidden ${
+        className={`fixed inset-x-0 top-[4.5rem] overflow-hidden border-b border-slate-200/80 dark:border-white/10 bg-[rgba(248,251,253,0.96)] dark:bg-slate-950/95 transition-all duration-500 xl:hidden ${
           isMobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
         }`}
         style={{ transitionTimingFunction: 'var(--ease-smooth)' }}
@@ -148,8 +155,8 @@ export default function Navigation({ siteTitle, professorName }: NavigationProps
               prefetch
               className={`block rounded-2xl px-4 py-3 text-base font-medium transition-all duration-300 ${
                 isLinkActive(pathname || '/', link.href)
-                  ? 'bg-slate-950 text-white'
-                  : 'bg-white/70 text-slate-600 hover:bg-slate-100 hover:text-slate-950'
+                  ? 'bg-slate-950 text-white dark:bg-primary dark:text-primary-foreground'
+                  : 'bg-white/70 text-slate-600 hover:bg-slate-100 hover:text-slate-950 dark:bg-slate-900/70 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white dark:text-white'
               }`}
               style={{
                 transitionDelay: isMobileMenuOpen ? `${index * 50}ms` : '0ms',

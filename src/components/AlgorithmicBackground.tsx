@@ -75,7 +75,9 @@ export default function AlgorithmicBackground({
     const accentColor = new THREE.Color(
       parseHslVariable(rootStyles.getPropertyValue('--accent').trim(), '#0f3d3e'),
     )
-    const graphite = new THREE.Color('#1f2937')
+    
+    const isDark = document.documentElement.classList.contains('dark')
+    const graphite = new THREE.Color(isDark ? '#94a3b8' : '#1f2937')
 
     const group = new THREE.Group()
     scene.add(group)

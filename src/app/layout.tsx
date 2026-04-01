@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { IBM_Plex_Sans, Source_Serif_4 } from 'next/font/google'
 import { Toaster } from '@/components/ui/sonner'
 import BackgroundGate from '@/components/BackgroundGate'
+import { ThemeProvider } from '@/components/ThemeProvider'
 import './globals.css'
 
 const display = Source_Serif_4({
@@ -27,11 +28,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
+    <html lang="en" className={`${display.variable} ${body.variable}`} suppressHydrationWarning>
       <body className="min-h-screen bg-background text-foreground antialiased">
-        <BackgroundGate />
-        {children}
-        <Toaster richColors closeButton />
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <BackgroundGate />
+          {children}
+          <Toaster richColors closeButton />
+        </ThemeProvider>
       </body>
     </html>
   )

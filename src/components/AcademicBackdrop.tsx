@@ -107,12 +107,12 @@ export default function AcademicBackdrop() {
         <div className="absolute inset-0 rounded-full border border-foreground/10 opacity-60" />
         <div className="absolute inset-8 rounded-full border border-foreground/10 opacity-40" />
         <div className="absolute inset-0 animate-orbit">
-          <span className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 rounded-full bg-foreground/20 shadow-[0_0_10px_rgba(15,20,35,0.2)]" />
-          <span className="absolute right-6 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-foreground/25" />
+          <span className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 rounded-full bg-foreground/20 shadow-[0_0_10px_rgba(15,20,35,0.2)] dark:bg-slate-300 dark:shadow-[0_0_10px_rgba(255,255,255,0.4)]" />
+          <span className="absolute right-6 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-foreground/25 dark:bg-slate-300" />
         </div>
         <div className="absolute inset-12 animate-orbit-reverse">
-          <span className="absolute left-1/2 bottom-0 h-2 w-2 -translate-x-1/2 rounded-full bg-foreground/20 shadow-[0_0_12px_rgba(15,20,35,0.18)]" />
-          <span className="absolute left-10 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-foreground/25" />
+          <span className="absolute left-1/2 bottom-0 h-2 w-2 -translate-x-1/2 rounded-full bg-foreground/20 shadow-[0_0_12px_rgba(15,20,35,0.18)] dark:bg-slate-300 dark:shadow-[0_0_12px_rgba(255,255,255,0.4)]" />
+          <span className="absolute left-10 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-foreground/25 dark:bg-slate-300" />
         </div>
       </div>
 
